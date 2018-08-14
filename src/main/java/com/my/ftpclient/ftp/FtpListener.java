@@ -10,6 +10,8 @@ import java.util.HashMap;
  */
 public interface FtpListener {
 
+
+
     void connectToFtp() throws Exception;
     void disconnect() throws Exception;
     ArrayList<HashMap> getFileList();

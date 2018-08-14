@@ -16,6 +16,7 @@
         <%@include file="/resources/css/style.css"%>
     </style>
     <script src="/graid.js"></script>
+    <link rel="shortcut icon" href="<c:url value="resources/images/favicon.ico" ></c:url>" type="image/x-icon">
 </head>
 <body>
 <div class="container">
