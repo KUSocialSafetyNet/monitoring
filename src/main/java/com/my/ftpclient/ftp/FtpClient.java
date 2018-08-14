@@ -17,8 +17,6 @@ public class FtpClient implements FtpListener {
     private String login;
     private String pass;
     private String backupDirectory;
-    private String test;
-    private String gg;
 
     public static FTPClient ftpClient=new FTPClient();
     FtpExplorer ftpExplorer =new FtpExplorer();
