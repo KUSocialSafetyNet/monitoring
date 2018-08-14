@@ -32,7 +32,6 @@ public class FtpClient implements FtpListener {
         this.login=login;
         this.pass=pass;
         this.backupDirectory=backupDirectory;
-
     }
 
     @Override
