@@ -26,11 +26,13 @@ public class FtpClient implements FtpListener {
         this.login=login;
         this.pass=pass;
         this.backupDirectory=backupDirectory;
+        System.out.println("asdasd");
     }
 
     @Override
     public String getHost() {
         return host;
+
     }
 
 
