@@ -19,6 +19,7 @@ public class FtpExplorer {
     public static ArrayList<HashMap> resultList=new ArrayList<HashMap>();
     ArrayList<HashMap> oneRecord=new ArrayList<>();
     Result fileList=new Result();
+    String root;
 
 
     enum FoldersName {DAY,WEEK,MONTH}
@@ -39,17 +40,18 @@ public class FtpExplorer {
         }
     }
 
-    public void findFiles() {
-        resultList.clear();
-        String rootDir="/";
-        for (FTPFile ftpFolder:getFileList(rootDir)) {
-            if (ftpFolder.isDirectory()) {
-                String folderName = ftpFolder.getName();
-                if (folderName.substring(0, 7).equals("SERV_IP")) {
-                    getBackupDirectory(rootDir + folderName);
+    public void findFiles(String rootDir) {
+            resultList.clear();
+            for (FTPFile ftpFolder : getFileList(rootDir)) {
+                if (ftpFolder.isDirectory()) {
+                    String folderName = ftpFolder.getName();
+                    if (folderName.substring(0, 7).equals("SERV_IP")) {
+                        System.out.println(folderName);
+                        getBackupDirectory(rootDir + folderName);
+                    }
                 }
             }
-        }
+
     }
 
     void clearAll(){

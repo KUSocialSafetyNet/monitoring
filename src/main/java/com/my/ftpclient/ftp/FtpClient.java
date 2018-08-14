@@ -16,17 +16,23 @@ public class FtpClient implements FtpListener {
     private String host;
     private String login;
     private String pass;
+
+    public String getBackupDirectory() {
+        return backupDirectory;
+    }
+
     private String backupDirectory;
 
     public static FTPClient ftpClient=new FTPClient();
     FtpExplorer ftpExplorer =new FtpExplorer();
+
 
     FtpClient(String host,String login,String pass,String backupDirectory){
         this.host=host;
         this.login=login;
         this.pass=pass;
         this.backupDirectory=backupDirectory;
-        System.out.println("sds");
+
     }
 
     @Override
@@ -35,15 +41,12 @@ public class FtpClient implements FtpListener {
 
     }
 
-
     @Override
     public void connectToFtp() throws Exception{
         ftpClient.connect(host);
         ftpClient.login(login,pass);
         ftpClient.enterLocalPassiveMode();
         int reply=ftpClient.getReplyCode();
-        ftpClient.changeWorkingDirectory(backupDirectory);
-        ftpClient.listFiles();
         if(!FTPReply.isPositiveCompletion(reply)) {
             disconnect();
             new Throwable("Отказ соединения с FTP");
@@ -59,7 +62,7 @@ public class FtpClient implements FtpListener {
     public ArrayList<HashMap> getFileList() {
         try{
             connectToFtp();
-            ftpExplorer.findFiles();
+            ftpExplorer.findFiles(getBackupDirectory());
             disconnect();
         } catch (Exception e) {
             e.printStackTrace();

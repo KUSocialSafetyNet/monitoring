@@ -7,7 +7,7 @@
             <constructor-arg value="10.13.25.154"></constructor-arg>
             <constructor-arg value="backuper"></constructor-arg>
             <constructor-arg value="B@ckuper154"></constructor-arg>
-            <constructor-arg value=""></constructor-arg>
+            <constructor-arg value="/"></constructor-arg>
         </bean>
 
         <bean id="ftp2" class="com.my.ftpclient.ftp.FtpClient">
