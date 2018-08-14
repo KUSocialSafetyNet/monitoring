@@ -33,6 +33,7 @@ public class FtpClient implements FtpListener {
         return host;
     }
 
+
     @Override
     public void connectToFtp() throws Exception{
         ftpClient.connect(host);
