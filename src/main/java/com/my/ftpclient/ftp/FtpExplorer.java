@@ -2,6 +2,7 @@ package com.my.ftpclient.ftp;
 
 import com.my.ftpclient.check.CheckingFiles;
 import com.my.ftpclient.result.Result;
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +21,7 @@ public class FtpExplorer {
     ArrayList<HashMap> oneRecord=new ArrayList<>();
     Result fileList=new Result();
     String root;
-
+    FTPClient ftpClient;
 
     enum FoldersName {DAY,WEEK,MONTH}
 
@@ -33,11 +34,15 @@ public class FtpExplorer {
         //TODO что делать если будет NULL
         final FTPFile[] defaultResult={};
         try {
-            return FtpClient.ftpClient.listFiles(dir);
+            return ftpClient.listFiles(dir);
         } catch (IOException e) {
             e.printStackTrace();
             return defaultResult;
         }
+    }
+
+    public void seter(FTPClient ftpClient){
+        this.ftpClient=ftpClient;
     }
 
     public void findFiles(String rootDir) {
@@ -46,7 +51,6 @@ public class FtpExplorer {
                 if (ftpFolder.isDirectory()) {
                     String folderName = ftpFolder.getName();
                     if (folderName.substring(0, 7).equals("SERV_IP")) {
-                        System.out.println(folderName);
                         getBackupDirectory(rootDir + folderName);
                     }
                 }

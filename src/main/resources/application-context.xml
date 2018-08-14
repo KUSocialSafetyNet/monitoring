@@ -1,20 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-        <bean id="ftp1" class="com.my.ftpclient.ftp.FtpClient">
-            <constructor-arg value="10.13.25.154"></constructor-arg>
-            <constructor-arg value="backuper"></constructor-arg>
-            <constructor-arg value="B@ckuper154"></constructor-arg>
-            <constructor-arg value="/"></constructor-arg>
+
+    <util:list id="ftpServerList">
+        <bean class="com.my.ftpclient.ftp.FtpClient" destroy-method="disconnect" >
+            <constructor-arg value="10.13.25.154"/>
+            <constructor-arg value="backuper"/>
+            <constructor-arg value="B@ckuper154"/>
+            <constructor-arg value="/"/>
+            <property name="god" value="#{config.folderConfiguration}"/>
+        </bean>
+        <bean class="com.my.ftpclient.ftp.FtpClient" destroy-method="disconnect" >
+            <constructor-arg value="10.13.0.214"/>
+            <constructor-arg value="backuper"/>
+            <constructor-arg value="B@ckuper214"/>
+            <constructor-arg value="BACKUPS/"/>
+            <property name="god" value="#{config.folderConfiguration}"/>
+        </bean>
+    </util:list>
+
+    <bean id="config" class="com.my.ftpclient.configuration.FolderConfig"  >
+        <property name="folderConfiguration">
+            <map>
+                <entry key="DAY" value="1"/>
+                <entry key="WEEK" value="7"/>
+                <entry key="MONTH" value="33"/>
+            </map>
+        </property>
+    </bean>
+
+        <bean id="ftp1" class="com.my.ftpclient.ftp.FtpClient" destroy-method="disconnect" >
+            <constructor-arg value="10.13.25.154"/>
+            <constructor-arg value="backuper"/>
+            <constructor-arg value="B@ckuper154"/>
+            <constructor-arg value="/"/>
+            <property name="god" value="#{config.folderConfiguration}"/>
         </bean>
 
-        <bean id="ftp2" class="com.my.ftpclient.ftp.FtpClient">
-        <constructor-arg value="10.13.0.214"></constructor-arg>
-        <constructor-arg value="backuper"></constructor-arg>
-        <constructor-arg value="B@ckuper214"></constructor-arg>
-            <constructor-arg value="BACKUPS/"></constructor-arg>
+        <bean id="ftp2" class="com.my.ftpclient.ftp.FtpClient" destroy-method="disconnect"  >
+            <constructor-arg value="10.13.0.214"/>
+            <constructor-arg value="backuper"/>
+            <constructor-arg value="B@ckuper214"/>
+            <constructor-arg value="BACKUPS/"/>
+            <property name="god" value="#{config.folderConfiguration}"/>
         </bean>
+
+
 
 </beans>

@@ -1,29 +1,22 @@
 package com.my.ftpclient.configuration;
 
+import java.util.Map;
+
 /**
  * Created by User on 13.08.2018.
  */
 public class FolderConfig {
 
-    private String path;
-    private int period;
 
-    public String getPath() {
-        return path;
+    public Map<String, Integer> getFolderConfiguration() {
+        return folderConfiguration;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFolderConfiguration(Map<String, Integer> folderConfiguration) {
+        this.folderConfiguration = folderConfiguration;
     }
 
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
+    private Map<String,Integer> folderConfiguration;
 
 
 }

@@ -28,7 +28,7 @@
     <div id="products" class="row list-group">
         <div class="item  col-xs-4 col-lg-4">
             <div class="thumbnail">
-                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/ftp154"> <img width = "150px" height = "auto" class="group list-group-image" src="<c:url value="resources/images/server.png" ></c:url>" alt="Сервис проверки ежедневного, еженедельного и ежемесячного бэкапирование Баз Данных" /> </a>
+                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/ftp?id=0"> <img width = "150px" height = "auto" class="group list-group-image" src="<c:url value="resources/images/server.png" ></c:url>" alt="Сервис проверки ежедневного, еженедельного и ежемесячного бэкапирование Баз Данных" /> </a>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Бэкапирование сервера</h4>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="thumbnail">
-                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/ftp214"> <img width = "150px" height = "auto" class="group list-group-image" src="<c:url value="resources/images/server.png" ></c:url>" alt="Сервис проверки ежедневного, еженедельного и ежемесячного бэкапирование Баз Данных" /> </a>
+                <a class="btn btn-success" href="${pageContext.servletContext.contextPath}/ftp?id=1"> <img width = "150px" height = "auto" class="group list-group-image" src="<c:url value="resources/images/server.png" ></c:url>" alt="Сервис проверки ежедневного, еженедельного и ежемесячного бэкапирование Баз Данных" /> </a>
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
                         Бэкапирование сервера</h4>

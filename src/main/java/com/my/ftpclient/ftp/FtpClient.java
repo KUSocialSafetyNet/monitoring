@@ -5,6 +5,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by User on 08.08.2018.
@@ -13,17 +14,33 @@ import java.util.HashMap;
 public class FtpClient implements FtpListener {
 
 
+    public Map<String,Integer> getGod() {
+        return god;
+    }
+
+    public void setGod(Map<String,Integer> god) {
+        this.god = god;
+    }
+
+    private Map<String,Integer> god;
+
     private String host;
     private String login;
     private String pass;
+
+
 
     public String getBackupDirectory() {
         return backupDirectory;
     }
 
+    public void setBackupDirectory(String backupDirectory) {
+        this.backupDirectory = backupDirectory;
+    }
+
     private String backupDirectory;
 
-    public static FTPClient ftpClient=new FTPClient();
+    public FTPClient ftpClient=new FTPClient();
     FtpExplorer ftpExplorer =new FtpExplorer();
 
 
@@ -55,18 +72,20 @@ public class FtpClient implements FtpListener {
     @Override
     public void disconnect() throws Exception{
         ftpClient.disconnect();
+        System.out.println("Disconnect from "+host);
     }
 
     @Override
     public ArrayList<HashMap> getFileList() {
-        try{
+        try {
             connectToFtp();
+            ftpExplorer.seter(ftpClient);
             ftpExplorer.findFiles(getBackupDirectory());
-            disconnect();
+            System.out.println(god.size());
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
+
         return ftpExplorer.resu();
     }
 
