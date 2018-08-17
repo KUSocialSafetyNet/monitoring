@@ -1,51 +1,40 @@
 package com.my.ftpclient.ftp;
 
+import com.my.ftpclient.configuration.FtpConfiguration;
+import com.my.ftpclient.imp.FtpListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
-
+import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by User on 08.08.2018.
- */
-
 public class FtpClient implements FtpListener {
-
 
     private String host;
     private String login;
     private String pass;
-    private String backupDirectory;
-    private String test;
-    private String gg;
-
-    public static FTPClient ftpClient=new FTPClient();
-    FtpExplorer ftpExplorer =new FtpExplorer();
-
-    FtpClient(String host,String login,String pass,String backupDirectory){
-        this.host=host;
-        this.login=login;
-        this.pass=pass;
-        this.backupDirectory=backupDirectory;
-        System.out.println("sds");
-    }
+    private String root;
+    private FtpExplorer ftpExplorer;
+    private FTPClient ftpClient=new FTPClient();
+    final static Logger LOG=Logger.getLogger(FtpClient.class);
 
     @Override
-    public String getHost() {
-        return host;
-
+    public ArrayList<HashMap> startCheck() {
+        try {
+            connectToFtp();
+            ftpExplorer.setFtpClient(ftpClient);
+            ftpExplorer.findFiles(root);
+        } catch (Exception e) {
+            LOG.error(e.getMessage()); }
+                return ftpExplorer.getResult();
     }
-
 
     @Override
     public void connectToFtp() throws Exception{
-        ftpClient.connect(host);
+       ftpClient.connect(host);
         ftpClient.login(login,pass);
         ftpClient.enterLocalPassiveMode();
         int reply=ftpClient.getReplyCode();
-        ftpClient.changeWorkingDirectory(backupDirectory);
-        ftpClient.listFiles();
         if(!FTPReply.isPositiveCompletion(reply)) {
             disconnect();
             new Throwable("Отказ соединения с FTP");
@@ -55,20 +44,19 @@ public class FtpClient implements FtpListener {
     @Override
     public void disconnect() throws Exception{
         ftpClient.disconnect();
+        System.out.println("Disconnect from "+host);
     }
 
     @Override
-    public ArrayList<HashMap> getFileList() {
-        try{
-            connectToFtp();
-            ftpExplorer.findFiles();
-            disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return ftpExplorer.resu();
+    public void setConfiguration(FtpConfiguration ftpConfiguration) {
+        this.host=ftpConfiguration.getHost();
+        this.login=ftpConfiguration.getLogin();
+        this.pass=ftpConfiguration.getPassword();
+        this.root=ftpConfiguration.getRoot();
     }
 
+    public void setFtpExplorer(FtpExplorer ftpExplorer) {
+        this.ftpExplorer = ftpExplorer;
+    }
 
 }
