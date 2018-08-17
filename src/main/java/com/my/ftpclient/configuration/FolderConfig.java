@@ -1,22 +1,22 @@
 package com.my.ftpclient.configuration;
 
+import com.my.ftpclient.imp.FolderConfigerationImp;
 import java.util.Map;
 
-/**
- * Created by User on 13.08.2018.
- */
-public class FolderConfig {
-
+public class FolderConfig implements FolderConfigerationImp {
 
     public Map<String, Integer> getFolderConfiguration() {
         return folderConfiguration;
     }
 
+    private Map<String, Integer> folderConfiguration;
+
     public void setFolderConfiguration(Map<String, Integer> folderConfiguration) {
         this.folderConfiguration = folderConfiguration;
     }
 
-    private Map<String,Integer> folderConfiguration;
-
-
+    @Override
+    public Map<String, Integer> getFolders() {
+        return folderConfiguration;
+    }
 }
