@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+     <util:list id="ftpConfigList">
+        <bean class="com.my.ftpclient.configuration.FtpConfiguration"  >
+            <property name="host" value="0.1.2.154"/>
+            <property name="login" value="login"/>
+            <property name="password" value="password"/>
+            <property name="root" value="/"/>
+        </bean>
+        <bean class="com.my.ftpclient.configuration.FtpConfiguration"  >
+            <property name="host" value="0.1.0.214"/>
+            <property name="login" value="login"/>
+            <property name="password" value="password"/>
+            <property name="root" value="BACKUPS/"/>
+        </bean>
+    </util:list>
+
+    <bean id="ftpClient" class="com.my.ftpclient.ftp.FtpClient" destroy-method="disconnect">
+        <property name="ftpExplorer" ref="ftpExplorer"/>
+    </bean>
+
+    <bean id="ftpExplorer" class="com.my.ftpclient.ftp.FtpExplorer">
+        <constructor-arg ref="config"/>
+    </bean>
+
+    <bean id="config" class="com.my.ftpclient.configuration.FolderConfig"  >
+        <property name="folderConfiguration">
+            <map>
+                <entry key="DAY" value="1"/>
+                <entry key="WEEK" value="7"/>
+                <entry key="MONTH" value="33"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>
